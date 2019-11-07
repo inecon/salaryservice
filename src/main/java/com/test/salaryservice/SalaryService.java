@@ -1,7 +1,7 @@
 package com.test.salaryservice;
 
-class SalaryServise {
-    private final String NOT_ENOUGH_BUDGET = "Company cannot pay salaries: Budget exceeded";
+class SalaryService {
+    private final String errorMessage = "com.test.salaryservice.Company cannot pay salaries: Budget exceeded";
 
     void pay(Company company) {
         Double sumOfSalaries = 0.00;
@@ -10,10 +10,9 @@ class SalaryServise {
         }
         if (company.getBudget() >= sumOfSalaries) {
             // implement paying process in real app
-            System.out.println("Company payed to all employees:  " + sumOfSalaries + " USD");
+            System.out.println("com.test.salaryservice.Company payed to all employees:  " + sumOfSalaries + " USD");
         } else {
-            // implement paying process in real app
-            System.out.println(NOT_ENOUGH_BUDGET);
+            throw new NotEnoughBudgetException(errorMessage);
         }
     }
 }

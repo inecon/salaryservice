@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 @Data
 class ScrumMaster extends Employee {
     @Override
-    double getSalary() {
+    public double getSalary() {
         return (getWorkdays() * getRatePerHour() * 8);
     }
 }

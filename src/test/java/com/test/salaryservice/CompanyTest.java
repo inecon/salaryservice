@@ -6,7 +6,9 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static junit.framework.TestCase.*;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -15,7 +17,6 @@ public class CompanyTest {
     private Employee manager = new Manager();
     private Employee scrumMaster = new ScrumMaster();
     private Employee developer = new Developer();
-
 
     @Before
     public void init() {
@@ -46,13 +47,14 @@ public class CompanyTest {
         assertEquals(3, company.getEmployees().size());
     }
 
-    @Test
+    @Test(expected = NotEnoughBudgetException.class)
     public void shouldNotPay() {
+        String expectedMessage = "com.test.salaryservice.Company payed to all employees:";
         company.setBudget(1000.00);
         company.addEmploee(manager);
         company.addEmploee(scrumMaster);
         company.addEmploee(developer);
-        SalaryServise salaryService = company.getSalaryService();
+        SalaryService salaryService = company.getSalaryService();
         salaryService.pay(company);
     }
 
@@ -62,7 +64,7 @@ public class CompanyTest {
         company.addEmploee(manager);
         company.addEmploee(scrumMaster);
         company.addEmploee(developer);
-        SalaryServise salaryService = company.getSalaryService();
+        SalaryService salaryService = company.getSalaryService();
         salaryService.pay(company);
     }
 }
