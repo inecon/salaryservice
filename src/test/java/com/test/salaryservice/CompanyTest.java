@@ -14,26 +14,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @SpringBootTest
 public class CompanyTest {
     private Company company = new Company();
-    private Employee manager = new Manager();
-    private Employee scrumMaster = new ScrumMaster();
-    private Employee developer = new Developer();
+    private Employee manager;
+    private Employee scrumMaster;
+    private Employee developer;
 
     @Before
     public void init() {
         company.setName("SuperCompany");
-        manager.setName("Manager");
-        manager.setSurname("ManagerSurname");
-        manager.setRatePerHour(10);
-        manager.setWorkdays(5);
-        scrumMaster.setName("ScrumMaster");
-        scrumMaster.setSurname("ScrumMasterSurname");
-        scrumMaster.setRatePerHour(15);
-        scrumMaster.setWorkdays(4);
-        developer.setName("Developer");
-        developer.setSurname("DeveloperSurname");
-        developer.setRatePerHour(20);
-        developer.setWorkdays(7);
-        developer.setBonuses(50.00);
+        manager = new Employee("Manager", "ManagerSurname", 10.00, 5, Role.MANAGER);
+        scrumMaster = new Employee("ScrumMaster", "ScrumMasterSurname", 15.00, 4, Role.SCRUM_MASTER);
+        developer = new Employee("Developer", "DeveloperSurname", 20.00, 7, 50.00, Role.DEVELOPER);
     }
 
     @Test
@@ -49,7 +39,6 @@ public class CompanyTest {
 
     @Test(expected = NotEnoughBudgetException.class)
     public void shouldNotPay() {
-        String expectedMessage = "com.test.salaryservice.Company payed to all employees:";
         company.setBudget(1000.00);
         company.addEmploee(manager);
         company.addEmploee(scrumMaster);

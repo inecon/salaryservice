@@ -16,7 +16,6 @@ class Company {
 
     void addEmploee(@NonNull Employee employee) {
         employees.add(employee);
-
     }
 
     SalaryService getSalaryService() {
